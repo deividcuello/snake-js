@@ -85,10 +85,12 @@ body{
 
 .head{
     background-color: var(--snakeHead);
+    transform: rotate(45deg);
 }
 
 .food{
     background-color: var(--snakeFood);
+    transform: rotate(45deg);
 }
 
 .pause{
