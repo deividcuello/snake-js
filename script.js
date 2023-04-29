@@ -17,10 +17,14 @@ let scoreCounter = 0
 let highScoreCounter = 0
 
 let gameStatus = true
+let paused = false
 
 let headArr = []
 
 function startGame(){
+    if(paused){
+        return
+    }
     let html = `<div class="food" style="grid-area: ${yFood} / ${xFood};"></div>`
     
     if(xPosition < 1 || yPosition < 1 || xPosition > 30 || yPosition > 30 || gameStatus == false){
@@ -87,6 +91,8 @@ const moveSnake = (e) => {
     } else if(e.key === "ArrowRight"){
         xVelocity = 1
         yVelocity = 0
+    } else if(e.key.toLowerCase() === "p"){
+        paused = !paused
     }
 }
 
@@ -110,4 +116,4 @@ gameOverBtn.addEventListener('click', () => {
 })
 
 document.addEventListener("keydown", moveSnake)
-setInterval(startGame, 100)
+const starter = setInterval(startGame, 100)

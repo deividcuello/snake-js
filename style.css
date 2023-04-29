@@ -91,6 +91,11 @@ body{
     background-color: var(--snakeFood);
 }
 
+.pause{
+    padding-top: 0.5rem;
+    color: var(--white);
+}
+
 @media only screen and (max-width: 854px) {
     #app {
         width: 60%;
