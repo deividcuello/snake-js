@@ -23,12 +23,15 @@ let headArr = []
 function startGame(){
     let html = `<div class="food" style="grid-area: ${yFood} / ${xFood};"></div>`
     
-    if(xPosition < 1 || yPosition < 1 || xPosition > 30 || yPosition > 30){
+    if(xPosition < 1 || yPosition < 1 || xPosition > 30 || yPosition > 30 || gameStatus == false){
         gameOver.style.left = 0;
-        if(highScoreCounter < scoreCounter && gameStatus == true){
-            highScoreCounter = scoreCounter
+        gameStatus = true;
+        if(gameStatus == true){
+            if(highScoreCounter < scoreCounter){
+                highScoreCounter = scoreCounter
+                highScore.textContent =  `High Score: ${scoreCounter}`
+            }
             gameStatus = false
-            highScore.textContent =  `High Score: ${scoreCounter}`
         }
         return
     } else{
@@ -36,7 +39,7 @@ function startGame(){
         yPosition += yVelocity
     }
 
-    if(xPosition >= 1 && yPosition >= 1 && xPosition <= 30 && yPosition <= 30){
+    if(xPosition >= 1 && yPosition >= 1 && xPosition <= 30 && yPosition <= 30 && gameStatus == true){
 
         if(xPosition == xFood && yPosition == yFood){
             scoreCounter += 1
@@ -53,9 +56,18 @@ function startGame(){
         
         headArr[0] = [xPosition, yPosition]
         
-        headArr.forEach(element => {
-            html += `<div class="head" style="grid-area: ${element[1]} / ${element[0]};"></div>`
-        });
+
+        for (let i = 0; i < headArr.length; i++) {
+            
+            html += `<div class="head" style="grid-area: ${headArr[i][1]} / ${headArr[i][0]};"></div>`
+
+            if(i != 0 && headArr[0][1] == headArr[i][1] && headArr[0][0] == headArr[i][0]){
+                gameStatus = false
+                xVelocity = 0
+                yVelocity = 0
+            }
+            
+        }
         
         snakeContainer.innerHTML = html;
     }
